@@ -1,0 +1,46 @@
+1 - Which employee made the most sales
+
+SELECT Employee.firstname || ' ' || Employee.lastname AS Name, 
+sum(Invoice.total) as Sales
+FROM Invoice 
+JOIN Customer
+on Invoice.customerid = Customer.customerid
+join Employee
+on Customer.supportrepid = Employee.employeeid 
+GROUP by employeeid
+order by Sales DESC;
+
+2- Which is most popular mediatype?
+
+SELECT MediaType.Name, 
+COUNT (InvoiceLine.Quantity) as PurchasedCount
+FROM InvoiceLine 
+JOIN Track
+on InvoiceLine.trackid = Track.trackid
+JOIN MediaType
+on Track.mediatypeid = MediaType.mediatypeid
+GROUP by MediaType.MediaTypeId
+order by PurchasedCount DESC;
+
+3- Question 3: Who is the best customer?
+
+SELECT Customer.FirstName || ' ' || Customer.LastName as Name, 
+sum(Invoice.total) AS Total_Sales 
+FROM Customer
+JOIN Invoice
+ON Customer.customerid = Invoice.customerid
+GROUP by Customer.CustomerId
+ORDER BY Total_sales DESC 
+LIMIT 5 ;
+
+4- Which customer from the USA purchased the most?
+
+SELECT Customer.FirstName || ' ' || Customer.LastName as Name, 
+sum(Invoice.total) AS Total_Sales 
+FROM Customer
+JOIN Invoice
+ON Customer.customerid = Invoice.customerid
+where Invoice.billingcountry = 'USA'
+GROUP by Customer.CustomerId
+ORDER BY Total_sales DESC 
+LIMIT 5 ;
